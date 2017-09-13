@@ -4,9 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_01_01"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        mc:Ignorable="d" Height="400" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Title="Калькулятор" Background="#FFDDDDDD">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="Wrap"  Margin="5" Text="0" FontSize="18" TextAlignment="Right" Name="tb" Background="#FFDDDDDD"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Margin="10,10,10,20" Text="0" FontSize="30" TextAlignment="Right" Name="resb"/>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="5">
+            <RadioButton Content="Градусы" GroupName="Angles" IsChecked="True" Name="toDegree_bt" Height="auto" Checked="toDegree_bt_Checked"/>
+            <RadioButton Content="Радианы" GroupName="Angles" Name="toRadians_bt" Checked="toRadians_bt_Checked"/>
+        </StackPanel>
+
+
+        <Button Grid.Row="2" Grid.Column="2" Content="C" Margin="3" Name="reset_bt" Click="reset_bt_Click" FontSize="14"/>
+        <Button Grid.Row="2" Grid.Column="3" Content="&#x232B;" Margin="3" Name="erase_bt" Click="erase_bt_Click" FontSize="14"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="&#x221A;x" Margin="3" FontSize="14" Name="sqrt_bt" Click="Sqrt_Click" />
+        <Button Grid.Row="3" Grid.Column="1" Content="x&#xB2;" Margin="3" FontSize="14" Name="exp_bt" Click="Exp_bt_Click" />
+
+
+        <!-- Funtions -->
+        <Button Grid.Row="3" Grid.Column="2" Content="1/x" Margin="3" FontSize="14" Click="Button_Click"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="sin" Margin="3" FontSize="14" Name="sin_bt" Click="Sin_bt_Click"/>
+        <Button Grid.Row="4" Grid.Column="3" Content="cos" Margin="3" FontSize="14" Name="cos_bt" Click="Cos_bt_Click"/>
+        <Button Grid.Row="5" Grid.Column="3" Content="tan" Margin="3" FontSize="14" Name="tan_tb" Click="Tan_tb_Click"/>
+        <Button Grid.Row="6" Grid.Column="3" Content="Rad" Margin="3" FontSize="14" Name="rad_tb" Click="rad_tb_Click"/>
+        <Button Grid.Row="7" Grid.Column="3" Content="Deg" Margin="3" FontSize="14" Name="degree_tb" Click="degree_tb_Click"/>
+
+        <!-- Buttons  numbers -->
+        <Button Grid.Row="4" Grid.Column="0" Content="7" FontSize="20" FontWeight="Bold" Margin="3" Name="seven_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="8" FontSize="20" FontWeight="Bold" Margin="3" Name="eight_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="9" FontSize="20" FontWeight="Bold" Margin="3" Name="nine_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="5" Grid.Column="0" Content="4" FontSize="20" FontWeight="Bold" Margin="3" Name="four_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="5" FontSize="20" FontWeight="Bold" Margin="3" Name="five_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="5" Grid.Column="2" Content="6" FontSize="20" FontWeight="Bold" Margin="3" Name="six_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="6" Grid.Column="0" Content="1" FontSize="20" FontWeight="Bold" Margin="3" Name="one_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="6" Grid.Column="1" Content="2" FontSize="20" FontWeight="Bold" Margin="3" Name="two_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="6" Grid.Column="2" Content="3" FontSize="20" FontWeight="Bold" Margin="3" Name="three_bt" Click="Number_Click" Background="White"/>
+        <Button Grid.Row="7" Grid.Column="1" Content="0" FontSize="20" FontWeight="Bold" Margin="3" Name="zero_bt" Click="zero_bt_Click" Background="White"/>
+        <Button Grid.Row="7" Grid.Column="2" Content="." FontSize="20" FontWeight="Bold" Margin="3" Name="dot_bt" Click="dot_bt_Click" Background="White"/>
+
+        <Button Grid.Row="7" Grid.Column="0" Content="&#xB1;" Margin="3" Name="plusminus" FontSize="14" Click="plusminus_Click"/>
     </Grid>
 </Window>
