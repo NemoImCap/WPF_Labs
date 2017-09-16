@@ -6,8 +6,39 @@
         xmlns:local="clr-namespace:Lab_02_01"
         mc:Ignorable="d"
 
-        Title="Работники" Height="450" Width="550" MinWidth="550" MinHeight="450">
+        Title="Работники" Height="450" Width="550" MinWidth="550" MinHeight="450" Closing="Window_Closing">
     <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,2,40,2" />
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="true">
+                            <Border Background="Red" DockPanel.Dock="right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="10"
+                                    ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" FontWeight="Bold" Foreground="white">
+                                </TextBlock>
+                            </Border>
+                            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                <Border BorderBrush="red" BorderThickness="1" />
+                            </AdornedElementPlaceholder>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--<Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Background" Value="LightPink"/>
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <ControlTemplate x:Key="validationErrorTemplate">
             <StackPanel Orientation="Horizontal">
                 <Border BorderBrush="Red" BorderThickness="2">
@@ -15,81 +46,73 @@
                 </Border>
                 <TextBlock Foreground="Red" Margin="5,0,0,0">*</TextBlock>
             </StackPanel>
-        </ControlTemplate>
-        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="Background" Value="LightPink"/>
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                            Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="comboBoxInError" TargetType="{x:Type ComboBox}">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="true">
-                    <Setter Property="Background" Value="LightPink"/>
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-                            Path=(Validation.Errors)[0].ErrorContent}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        </ControlTemplate>-->
     </Window.Resources>
 
-    <Grid >
+    <Grid Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <TextBlock Text="Фамилия" Margin="5,5,5,0"></TextBlock>
-            <TextBox Name="surename_tb" Margin="5,0,5,5" Height="22" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}" PreviewTextInput="TextBox_PreviewTextInput">
-                <TextBox.Text>
-                    <Binding Path="Name" UpdateSourceTrigger="Explicit">
+        <StackPanel Margin="0,0,10,0">
+            <TextBlock Text="Фамилия" Margin="5,5,20,0"></TextBlock>
+            <TextBox Name="surename_tb" Margin="5,0,20,5" Height="22">
+                <TextBox.Text >
+                    <Binding Path="SurName" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <local:NameValidator/>
+                            <ExceptionValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock Text="Зарплата" Margin="5,5,5,0"></TextBlock>
-            <TextBox Name="zp_tb" Margin="5,0,5,5" Height="22" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}">
+            <TextBlock Text="Зарплата" Margin="5,5,20,0"></TextBlock>
+            <TextBox Name="zp_tb" Margin="5,0,20,5" Height="22">
                 <TextBox.Text>
-                    <Binding Path="Name" UpdateSourceTrigger="LostFocus">
+                    <Binding Path="Pay" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True" Delay="300">
                         <Binding.ValidationRules>
-                            <local:NumberValidator/>
+                            <ExceptionValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock Text="Должность" Margin="5,5,5,0"></TextBlock>
-            <ComboBox Name="work_tb" Margin="5,0,5,5" IsEditable="True" ItemsSource="{Binding}" >
-            </ComboBox>
-            <TextBlock Text="Город" Margin="5,5,5,0"></TextBlock>
-            <ComboBox Name="city_tb" Text="" Margin="5,0,5,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"></ComboBox>
-            <TextBlock Text="Улица" Margin="5,5,5,0"></TextBlock>
-            <ComboBox Name="street_tb" Text="" Margin="5,0,5,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"></ComboBox>
-            <TextBlock Text="Номер дома" Margin="5,5,5,0"></TextBlock>
-            <TextBox Name="numberhouse_tb" Margin="5,0,5,5" Height="22"  Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}">
+            <TextBlock Text="Должность" Margin="5,5,20,0"></TextBlock>
+            <ComboBox Name="work_cb" Margin="5,0,20,5" IsEditable="True" ItemsSource="{Binding}" SelectedIndex="0"/>
+            <TextBlock Text="Город" Margin="5,5,20,0"></TextBlock>
+            <ComboBox Name="city_cb" Text="" Margin="5,0,20,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"/>
+            <TextBlock Text="Улица" Margin="5,5,20,0"></TextBlock>
+            <ComboBox Name="street_cb" Text="" Margin="5,0,20,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"/>
+            <TextBlock Text="Номер дома" Margin="5,5,20,0"></TextBlock>
+            <TextBox Name="numberhouse_tb" Margin="5,0,20,5" Height="22">
                 <TextBox.Text>
-                    <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                    <Binding Path="NumberHouse" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
                         <Binding.ValidationRules>
-                            <local:IntValidator/>
+                            <ExceptionValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
             <Button Content="Добавить" Name="add_tb" Margin="5,20,5,0" Click="add_tb_Click" Height="22">
                 <Button.Style>
-                    <Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=surename_tb, Path=Background.Color, Mode=OneWay}" Value="LightPink">
+                            <DataTrigger Binding="{Binding Path=Text.Length, ElementName=surename_tb}" Value="0">
                                 <Setter Property="Button.IsEnabled" Value="False" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding ElementName=zp_tb, Path=Background.Color, Mode=OneWay}" Value="LightPink">
+                            <DataTrigger Binding="{Binding Path=Text.Length, ElementName=work_cb}" Value="0">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Text.Length, ElementName=city_cb}" Value="0">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Text.Length, ElementName=street_cb}" Value="0">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=zp_tb}" Value="True">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=numberhouse_tb}" Value="True">
                                 <Setter Property="Button.IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
