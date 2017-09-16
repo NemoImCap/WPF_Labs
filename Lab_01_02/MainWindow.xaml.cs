@@ -34,7 +34,7 @@ namespace Lab_01_02
         }
     }
 
-    public class NumberValidator : ValidationRule
+    public class NameNumberValidator : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
@@ -49,6 +49,8 @@ namespace Lab_01_02
                     if(number > 5)
                         return new ValidationResult(false, "Значение не может быть больше 5");
                 }
+                else if (!Double.TryParse(value.ToString(), out number))
+                    return new ValidationResult(false, "Не является числом");
             }
             return ValidationResult.ValidResult;
         }
@@ -88,7 +90,6 @@ namespace Lab_01_02
 
                 double s = 0; // сумма s(x)
                 double y = 0; // значение функции y(x)
-                int n = 0;
 
                 double xstart = Convert.ToDouble(xstart_tb.Text);
                 double xstop = Convert.ToDouble(xstop_tb.Text);
@@ -102,14 +103,13 @@ namespace Lab_01_02
                         s += Math.Pow(Math.Log(Math.Pow(xstart, k)), k) / Factorial(k);
                     }
 
-            
-                    y = xstart/2;
+
+                    y = Math.Pow(3,xstart) - 1;
 
                     
                     results.Add("s(x) = " + s + ", y(x) = " + y);
                     y = 0;
                     s = 0;
-                    n++;
                     xstart+= xstep;
                 }
 

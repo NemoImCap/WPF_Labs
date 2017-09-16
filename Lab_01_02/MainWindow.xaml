@@ -15,7 +15,6 @@
                 </Border>
                 <TextBlock Foreground="Red" Margin="5,0,0,0">*</TextBlock>
             </StackPanel>
-
         </ControlTemplate>
         <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -35,10 +34,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        
-        
-        
-        <StackPanel Margin="10" >
+        <StackPanel Margin="10">
             <Label Content="X start"/>
             <TextBox Name="xstart_tb" Height="25" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}" TabIndex="0">
                 <TextBox.Text>
@@ -74,8 +70,7 @@
                 <TextBox.Text>
                     <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <local:NameValidator/>
-                            <local:NumberValidator/>
+                            <local:NameNumberValidator/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

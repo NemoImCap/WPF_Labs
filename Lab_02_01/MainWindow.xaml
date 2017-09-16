@@ -5,8 +5,122 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_02_01"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+
+        Title="Работники" Height="450" Width="550" MinWidth="550" MinHeight="450">
+    <Window.Resources>
+        <ControlTemplate x:Key="validationErrorTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="Red" BorderThickness="2">
+                    <AdornedElementPlaceholder x:Name="ErrorAdorner"></AdornedElementPlaceholder>
+                </Border>
+                <TextBlock Foreground="Red" Margin="5,0,0,0">*</TextBlock>
+            </StackPanel>
+        </ControlTemplate>
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Background" Value="LightPink"/>
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="comboBoxInError" TargetType="{x:Type ComboBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="Background" Value="LightPink"/>
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Фамилия" Margin="5,5,5,0"></TextBlock>
+            <TextBox Name="surename_tb" Margin="5,0,5,5" Height="22" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}" PreviewTextInput="TextBox_PreviewTextInput">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="Explicit">
+                        <Binding.ValidationRules>
+                            <local:NameValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="Зарплата" Margin="5,5,5,0"></TextBlock>
+            <TextBox Name="zp_tb" Margin="5,0,5,5" Height="22" Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <local:NumberValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="Должность" Margin="5,5,5,0"></TextBlock>
+            <ComboBox Name="work_tb" Margin="5,0,5,5" IsEditable="True" ItemsSource="{Binding}" >
+            </ComboBox>
+            <TextBlock Text="Город" Margin="5,5,5,0"></TextBlock>
+            <ComboBox Name="city_tb" Text="" Margin="5,0,5,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"></ComboBox>
+            <TextBlock Text="Улица" Margin="5,5,5,0"></TextBlock>
+            <ComboBox Name="street_tb" Text="" Margin="5,0,5,5" IsEditable="True" SelectedIndex="0" ItemsSource="{Binding}"></ComboBox>
+            <TextBlock Text="Номер дома" Margin="5,5,5,0"></TextBlock>
+            <TextBox Name="numberhouse_tb" Margin="5,0,5,5" Height="22"  Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" Style="{StaticResource textBoxInError}">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <local:IntValidator/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Content="Добавить" Name="add_tb" Margin="5,20,5,0" Click="add_tb_Click" Height="22">
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=surename_tb, Path=Background.Color, Mode=OneWay}" Value="LightPink">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=zp_tb, Path=Background.Color, Mode=OneWay}" Value="LightPink">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Text="Результаты" Margin="5" VerticalAlignment="Top"/>
+        <ListBox Grid.Column="1" Name="result_lb" Margin="5,30,5,5" ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding SurName}" />
+                        <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Binding Pay}"/>
+                        <TextBlock Margin="10,0,0,0" Grid.Column="2" Text="{Binding WorkPosition}"/>
+                        <TextBlock Margin="10,0,0,0" Grid.Column="3" Text="{Binding CityName}"/>
+                        <TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding StreetName}"/>
+                        <TextBlock Margin="10,0,0,0" Grid.Column="5" Text="{Binding NumberHouse}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </Window>
