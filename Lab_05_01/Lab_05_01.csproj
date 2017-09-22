@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6552B38E-004A-4C99-835F-7E3799961505}</ProjectGuid>
+    <ProjectGuid>{547AADC5-9467-416D-BE90-A81E33DA5D7B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Lab_03_01</RootNamespace>
-    <AssemblyName>Lab_03_01</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Lab_05_01</RootNamespace>
+    <AssemblyName>Lab_05_01</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +53,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingShapeWindow.xaml.cs">
+      <DependentUpon>SettingShapeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shape.cs" />
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +76,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SettingShapeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,26 +108,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
-      <Project>{5fecba62-194d-4ce7-8ef1-81bc72f1ed33}</Project>
-      <Name>ControlLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\hourse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\hourse0.png" />
-    <Resource Include="Images\hourse1.png" />
-    <Resource Include="Images\hourse10.png" />
-    <Resource Include="Images\hourse2.png" />
-    <Resource Include="Images\hourse3.png" />
-    <Resource Include="Images\hourse4.png" />
-    <Resource Include="Images\hourse5.png" />
-    <Resource Include="Images\hourse6.png" />
-    <Resource Include="Images\hourse7.png" />
-    <Resource Include="Images\hourse8.png" />
-    <Resource Include="Images\hourse9.png" />
+    <Resource Include="images\Icon128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Lab_03_01
 {
@@ -23,6 +24,24 @@ namespace Lab_03_01
         public MainWindow()
         {
             InitializeComponent();
+
+            test.Init(TimeSpan.FromSeconds(10));
+            test1.Init(TimeSpan.FromSeconds(15));
+            test2.Init(TimeSpan.FromSeconds(5));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            test.Stop();
+            test1.Stop();
+            test2.Stop();
+        }
+
+        private void Button_Click_Start(object sender, RoutedEventArgs e)
+        {
+            test.Move();
+            test1.Move();
+            test2.Move();
         }
     }
 }

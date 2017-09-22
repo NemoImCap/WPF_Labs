@@ -59,7 +59,7 @@
             <TextBlock Text="Фамилия" Margin="5,5,20,0"></TextBlock>
             <TextBox Name="surename_tb" Margin="5,0,20,5" Height="22">
                 <TextBox.Text >
-                    <Binding Path="SurName" ValidatesOnDataErrors="True" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="SurName" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <ExceptionValidationRule/>
                         </Binding.ValidationRules>
@@ -85,14 +85,14 @@
             <TextBlock Text="Номер дома" Margin="5,5,20,0"></TextBlock>
             <TextBox Name="numberhouse_tb" Margin="5,0,20,5" Height="22">
                 <TextBox.Text>
-                    <Binding Path="NumberHouse" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                    <Binding Path="NumberHouse" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" ValidatesOnExceptions="True" NotifyOnValidationError="True">
                         <Binding.ValidationRules>
                             <ExceptionValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="Добавить" Name="add_tb" Margin="5,20,5,0" Click="add_tb_Click" Height="22">
+            <Button Content="Добавить" Name="add_tb" Margin="5,20,20,0" Click="add_tb_Click" Height="22">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="True"/>

@@ -34,7 +34,7 @@ namespace Lab_02_01
         /// <summary>
         /// Валидация данных сотрудников
         /// </summary>
-        Employee employee;
+        Employee employee = new Employee();
         
         /// <summary>
         /// Список должностей
@@ -52,13 +52,13 @@ namespace Lab_02_01
 
         public MainWindow()
         {
-
             InitializeComponent();
 
-            employee = new Employee();
-            DataContext = employee;
-
+            //// ///// ///// /// ////
+            //employee = new Employee();
+            grid.DataContext = employee;
             InitData();
+            ///// ///// /////
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Lab_02_01
             citynames = new ObservableCollection<string>();
             streetnames = new ObservableCollection<string>();
 
-            employees = new ObservableCollection<Employee>();
+            //employees = new ObservableCollection<Employee>();
 
             employees = LoadEmployeesFromFile("data.txt");
             workpositions = InitComboBoxData(TypeComboBox.WORKPOS);
@@ -95,7 +95,7 @@ namespace Lab_02_01
             if (!File.Exists(filename))
             {
                 MessageBox.Show("Файл "+filename+" не существует!");
-                return null;
+                return new ObservableCollection<Employee>();
             }
             else
             {
@@ -129,7 +129,7 @@ namespace Lab_02_01
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    return null;
+                    return new ObservableCollection<Employee>();
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace Lab_02_01
                 }
             }
 
-            return null;
+            return new ObservableCollection<string>();
         }
 
         /// <summary>

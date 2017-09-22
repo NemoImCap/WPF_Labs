@@ -1,12 +1,39 @@
-﻿<Window x:Class="Lab_03_01.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_03_01"
+        xmlns:ControlLibrary="clr-namespace:ControlLibrary;assembly=ControlLibrary" x:Class="Lab_03_01.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Бег лошадей по ипподрому" Height="700" Width="1300">
+    <Window.Resources>
+        <PathGeometry x:Key="new_path">
+            <PathFigure>
+
+            </PathFigure>
+        </PathGeometry>
+        <PathGeometry x:Key="my_path" Figures="M 100,150 L 500,100 L 800,100 L 850,250 L 700,500 L 900,500 L 900,400 L 300,400 Z"/>
+
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Canvas Name="canvas" Background="Green" Grid.Column="0">
+            <Canvas.Resources>
+            </Canvas.Resources>
+            <Path Stroke="SandyBrown" StrokeThickness="50" Data="{StaticResource my_path}"/>
+            <Path Stroke="White" StrokeThickness="5" StrokeDashArray="5" Data="{StaticResource my_path}"/>
+            <ControlLibrary:MovementControl x:Name="test" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="0.1" XY="100,150">
+            </ControlLibrary:MovementControl>
+            <ControlLibrary:MovementControl x:Name="test1" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.1"/>
+            <ControlLibrary:MovementControl x:Name="test2" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.2"/>
+        </Canvas>
+        <StackPanel Grid.Column="1">
+            <Button Content="START" Click="Button_Click_Start"></Button>
+            <Button Content="PAUSE/RESUME" Click="Button_Click"></Button>
+        </StackPanel>
     </Grid>
 </Window>

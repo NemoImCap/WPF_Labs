@@ -22,7 +22,7 @@ namespace Lab_02_01
 
         //private string surname;
 
-        public string SurName { get; set; }
+        public string SurName { get; set ; }
         public double Pay { get; set; }
         public string WorkPosition { get; set; }
         public string CityName { get; set; }
