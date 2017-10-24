@@ -26,8 +26,8 @@
             </Canvas.Resources>
             <Path Stroke="SandyBrown" StrokeThickness="50" Data="{StaticResource my_path}"/>
             <Path Stroke="White" StrokeThickness="5" StrokeDashArray="5" Data="{StaticResource my_path}"/>
-            <ControlLibrary:MovementControl x:Name="test" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="0.1" XY="100,150">
-            </ControlLibrary:MovementControl>
+            <ControlLibrary:MovementControl x:Name="test" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="0.1" PropertyChanged="test_PropertyChanged" />
+
             <ControlLibrary:MovementControl x:Name="test1" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.1"/>
             <ControlLibrary:MovementControl x:Name="test2" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.2"/>
         </Canvas>

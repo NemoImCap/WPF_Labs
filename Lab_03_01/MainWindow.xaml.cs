@@ -43,5 +43,10 @@ namespace Lab_03_01
             test1.Move();
             test2.Move();
         }
+
+        private void test_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            MessageBox.Show("fds");
+        }
     }
 }

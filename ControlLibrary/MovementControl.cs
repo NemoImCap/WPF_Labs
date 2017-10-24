@@ -48,15 +48,28 @@ namespace ControlLibrary
     /// </summary>
     ///
 
-    public class MovementControl : Control
+    public class MovementControl : Control, INotifyPropertyChanged
     {
         #region DependencyProperty Content
 
         Storyboard sb = new Storyboard();
         static TimeSpan time;
 
-        static bool bIsHit = false;
-        static bool bIsMoved = false;
+        // Create the OnPropertyChanged method to raise the event
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        //public event PropertyChangedEventHandler Moved;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
 
         public ImageSource ImageSource
         {
@@ -77,7 +90,11 @@ namespace ControlLibrary
         public double X
         {
             get { return (double)GetValue(XProperty); }
-            set { SetValue(XProperty, value); }
+            set
+            {
+                SetValue(XProperty, value);
+                OnPropertyChanged("X");
+            }
         }
 
         public static readonly DependencyProperty XProperty =
@@ -107,6 +124,7 @@ namespace ControlLibrary
             set
             {
                 SetValue(XProperty, value);
+                OnPropertyChanged("Y");
             }
         }
 
@@ -127,11 +145,8 @@ namespace ControlLibrary
         private static void OnMoved(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Random rnd = new Random();
-
             time = TimeSpan.FromSeconds(rnd.Next(15, 25));
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
