@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ControlLibrary
 {
@@ -54,9 +55,13 @@ namespace ControlLibrary
 
         Storyboard sb = new Storyboard();
         static TimeSpan time;
+        private BitmapImage[] images;
+        private DispatcherTimer dT = new DispatcherTimer();
+        private int counter = 0;
 
-        static bool bIsHit = false;
-        static bool bIsMoved = false;
+        public bool bIsFinished;
+        public bool bIsHitted;
+        public int currentCountRound = 1;
 
         public ImageSource ImageSource
         {
@@ -65,6 +70,14 @@ namespace ControlLibrary
         }
         public static readonly DependencyProperty ImageSourceProperty =
           DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(MovementControl));
+
+        public string HourseName
+        {
+            get { return (string)GetValue(HourseNameProperty); }
+            set { SetValue(HourseNameProperty, value); }
+        }
+        public static readonly DependencyProperty HourseNameProperty =
+          DependencyProperty.Register("HourseName", typeof(string), typeof(MovementControl));
 
         public double Speed
         {
@@ -132,13 +145,26 @@ namespace ControlLibrary
         }
 
         //public event PropertyChangedEventHandler PropertyChanged;
-
         #endregion
 
         public void Init(TimeSpan duration)
         {
-            time = TimeSpan.FromSeconds(duration.Seconds*Speed);
+            images = new BitmapImage[10];
+            images[0] = new BitmapImage(new Uri("/Images/hourse0.png", UriKind.Relative));
+            images[1] = new BitmapImage(new Uri("/Images/hourse1.png", UriKind.Relative));
+            images[2] = new BitmapImage(new Uri("/Images/hourse2.png", UriKind.Relative));
+            images[3] = new BitmapImage(new Uri("/Images/hourse3.png", UriKind.Relative));
+            images[4] = new BitmapImage(new Uri("/Images/hourse4.png", UriKind.Relative));
+            images[5] = new BitmapImage(new Uri("/Images/hourse5.png", UriKind.Relative));
+            images[6] = new BitmapImage(new Uri("/Images/hourse6.png", UriKind.Relative));
+            images[7] = new BitmapImage(new Uri("/Images/hourse7.png", UriKind.Relative));
+            images[8] = new BitmapImage(new Uri("/Images/hourse8.png", UriKind.Relative));
+            images[9] = new BitmapImage(new Uri("/Images/hourse9.png", UriKind.Relative));
 
+            dT.Tick += new EventHandler(dT_Tick);
+
+            time = TimeSpan.FromSeconds(duration.Seconds/Speed);
+            dT.Interval = new TimeSpan(0, 0, 0, 0, time.Seconds);
             sb.Completed += Sb_Completed;
 
             DoubleAnimationUsingPath animation = new DoubleAnimationUsingPath();
@@ -175,6 +201,12 @@ namespace ControlLibrary
             sb.Children.Add(animation2);
         }
 
+        void dT_Tick(object sender, EventArgs e)
+        {
+            ImageSource = images[counter % images.Length];
+            counter++;
+        }
+
         private void Sb_Completed(object sender, EventArgs e)
         {
             MessageBox.Show(sender.ToString());
@@ -182,7 +214,9 @@ namespace ControlLibrary
 
         public void Move()
         {
+            bIsFinished = false;
             sb.Begin();
+            dT.Start();
         }
 
         public void Stop()
@@ -190,11 +224,20 @@ namespace ControlLibrary
             if (sb.GetIsPaused())
             {
                 sb.Resume();
+                dT.Start();
             }
             else
             {
                 sb.Pause();
+                dT.Stop();
             }
+        }
+
+        public void Finish()
+        {
+            bIsFinished = true;
+            sb.Stop();
+            dT.Stop();
         }
 
 
@@ -202,6 +245,7 @@ namespace ControlLibrary
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MovementControl), new FrameworkPropertyMetadata(typeof(MovementControl)));
             // Initialize ImagePath dependency properties
+
         }
     }
 }

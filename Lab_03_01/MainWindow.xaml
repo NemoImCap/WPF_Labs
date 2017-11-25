@@ -6,34 +6,58 @@
         xmlns:local="clr-namespace:Lab_03_01"
         xmlns:ControlLibrary="clr-namespace:ControlLibrary;assembly=ControlLibrary" x:Class="Lab_03_01.MainWindow"
         mc:Ignorable="d"
-        Title="Бег лошадей по ипподрому" Height="700" Width="1300">
+        Title="Бег лошадей по ипподрому" Height="782.5" Width="1366">
     <Window.Resources>
         <PathGeometry x:Key="new_path">
             <PathFigure>
 
             </PathFigure>
         </PathGeometry>
-        <PathGeometry x:Key="my_path" Figures="M 100,150 L 500,100 L 800,100 L 850,250 L 700,500 L 900,500 L 900,400 L 300,400 Z"/>
+        <PathGeometry x:Key="my_path" Figures="M 500,100 L 700,100 Q 900,100 900,300 L 900,400 Q 900,600, 700,600 L 300,600 Q 100,600 100,400 L 100,300 Q 100,100 300,100  Z"/>
 
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000"></ColumnDefinition>
+            <ColumnDefinition Width="1031"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Canvas Name="canvas" Background="Green" Grid.Column="0">
             <Canvas.Resources>
             </Canvas.Resources>
-            <Path Stroke="SandyBrown" StrokeThickness="50" Data="{StaticResource my_path}"/>
-            <Path Stroke="White" StrokeThickness="5" StrokeDashArray="5" Data="{StaticResource my_path}"/>
-            <ControlLibrary:MovementControl x:Name="test" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="0.1" XY="100,150">
+            <Path Stroke="SandyBrown" StrokeThickness="200" Data="{StaticResource my_path}"/>
+            <Path Stroke="Brown" StrokeThickness="0" StrokeDashArray="5" Data="{StaticResource my_path}"/>
+            <ControlLibrary:MovementControl x:Name="Zero" Height="100" Width="100" ImageSource="Images/hourse0.png" Y="100" NewGeometry="{StaticResource my_path}" X="500" Speed="0.3" Panel.ZIndex="2" MouseLeftButtonDown="Hourse_MouseLeftButtonDown" MouseRightButtonDown="Hourse_MouseRightButtonDown" HourseName="Zero">
             </ControlLibrary:MovementControl>
-            <ControlLibrary:MovementControl x:Name="test1" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.1"/>
-            <ControlLibrary:MovementControl x:Name="test2" Height="30" Width="30" ImageSource="Images/hourse.png" Y="150" NewGeometry="{StaticResource my_path}" X="100" Speed="2.2"/>
+            <ControlLibrary:MovementControl x:Name="Rain" Height="100" Width="100" ImageSource="Images/hourse0.png" Y="100" NewGeometry="{StaticResource my_path}" X="500" Speed="0.43" Panel.ZIndex="2" MouseLeftButtonDown="Hourse_MouseLeftButtonDown" MouseRightButtonDown="Hourse_MouseRightButtonDown" HourseName="Rain"/>
+            <ControlLibrary:MovementControl x:Name="Sun" Height="100" Width="100" ImageSource="Images/hourse0.png" Y="100" NewGeometry="{StaticResource my_path}" X="500" Speed="0.75" Panel.ZIndex="2" MouseLeftButtonDown="Hourse_MouseLeftButtonDown" MouseRightButtonDown="Hourse_MouseRightButtonDown" HourseName="Sun"/>
+            <Image Name="finish" Height="48" Canvas.Left="340" Canvas.Top="60" Width="200" Source="Images/0000027137_15-big.png" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
         </Canvas>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" Name="infotable">
             <Button Content="START" Click="Button_Click_Start"></Button>
             <Button Content="PAUSE/RESUME" Click="Button_Click"></Button>
+            <TextBlock Text="Количество кругов"></TextBlock>
+            <TextBox Name="roundCount" Text="1"></TextBox>
+            <TextBlock Text="Результаты скачек"></TextBlock>
+            <ListBox x:Name="raceresult" Height="100" Margin="10,10,10,10"/>
+            <TextBlock Text="Лошадь"></TextBlock>
+            <TextBlock Name="hourseName" Text=""></TextBlock>
+            <TextBlock Text="Скорость"></TextBlock>
+            <TextBlock Name="hourseSpeed" Text=""></TextBlock>
+            <TextBlock Text="Позиция"></TextBlock>
+            <TextBlock Name="hourseposX" Text=""></TextBlock>
+            <TextBlock Name="hourseposY" Text=""></TextBlock>
+            <Separator />
+            <TextBlock Text="Круг"></TextBlock>
+            <TextBlock Name="hourseroundcount" Text="0"></TextBlock>
         </StackPanel>
     </Grid>
 </Window>

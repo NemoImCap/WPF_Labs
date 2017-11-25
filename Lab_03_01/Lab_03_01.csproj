@@ -115,5 +115,10 @@
     <Resource Include="Images\hourse8.png" />
     <Resource Include="Images\hourse9.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\0000027137_15-big.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
