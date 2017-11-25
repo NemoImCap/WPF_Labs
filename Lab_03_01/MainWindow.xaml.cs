@@ -138,5 +138,10 @@ namespace Lab_03_01
             hourseposX.Text = "X = " + mhourse.X;
             hourseposY.Text = "Y = " + mhourse.Y;
         }
+
+        private void test_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            MessageBox.Show("fds");
+        }
     }
 }
