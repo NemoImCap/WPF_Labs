@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_05_01", "Lab_05_01\Lab_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lab_06", "Lab_06", "{2EBEA92E-4B9F-4F30-A68B-BEE81DA89F3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_06_01", "WpfApp1\Lab_06_01.csproj", "{481B85E3-E8DC-4E1B-B508-267272568C9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_06_01", "Lab_06_01\Lab_06_01.csproj", "{481B85E3-E8DC-4E1B-B508-267272568C9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
