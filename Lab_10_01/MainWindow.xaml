@@ -1,0 +1,34 @@
+﻿<Window x:Class="Lab_10_01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_10_01"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="1102.107">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Button.Margin" Value="5"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Button.Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Content="Сериализовать объекты" Name="serialize_bt" Click="serialize_bt_Click"/>
+            <Button Content="Десериализовать объекты" Name="deserialize_bt" Click="deserialize_bt_Click"/>
+            <RadioButton GroupName="Serialization" Content="Бинарная сериализация" IsChecked="True" Name="binary_rb"></RadioButton>
+            <RadioButton GroupName="Serialization" Content="XML сериализация" Name="xml_rb"></RadioButton>
+            <RadioButton GroupName="Serialization" Content="Использование объектной модели" Name="objectxml_rb"></RadioButton>
+            <RadioButton GroupName="Serialization" Content="Использование LINQ-toXML" Name="linqxml_rb"></RadioButton>
+        </StackPanel>
+        <ListBox x:Name="lBox" Grid.Column="1" ItemsSource="{Binding}"/>
+        <ListBox x:Name="lBox2" Grid.Column="2" ItemsSource="{Binding}"/>
+    </Grid>
+</Window>

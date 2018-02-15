@@ -3,9 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:thrd="clr-namespace:System.ComponentModel;assembly=System"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Многопоточное приложение" Height="172" Width="525">
+
+    <Window.Resources>
+        <thrd:BackgroundWorker x:Key="worker"
+                DoWork="BackgroundWorker_DoWork"
+                ProgressChanged="BackgroundWorker_ProgressChanged"
+                RunWorkerCompleted="BackgroundWorker_RunWorkerCompleted"
+                WorkerReportsProgress="True"
+         />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -13,20 +23,16 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"></RowDefinition>
+
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0">
-            <TextBlock Margin="3" Text="Данные" ></TextBlock>
-            <ListBox Margin="3" Height="100"/>
-        </StackPanel>
-        <ProgressBar Name="progress" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1" Margin="5"/>
-        <Button Content="Задать значения" Grid.Column="0" Grid.Row="2" Margin="3"></Button>
-        <Button Content="BackGroundWorker" Grid.Column="1" Grid.Row="2" Margin="3"></Button>
-        <Button Content="Dispatcher" Grid.Column="2" Grid.Row="2" Margin="3"></Button>
-
+        <ProgressBar Name="progress" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5"/>
+        <Button x:Name="change_bt" Content="Задать значения" Grid.Column="0" Grid.Row="1" Margin="3" Click="Button_Click"></Button>
+        <Button x:Name="worker_bt" Content="BackGroundWorker" Grid.Column="1" Grid.Row="1" Margin="3" Click="worker_bt_Click"></Button>
+        <Button x:Name="dispacher_bt" Content="Dispatcher" Grid.Column="2" Grid.Row="1" Margin="3" Click="dispacher_bt_Click"></Button>
+        <TextBlock Name="result_tb" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Margin="10"></TextBlock>
 
     </Grid>
 </Window>

@@ -1,0 +1,47 @@
+﻿<Window x:Class="Lab_05_01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_05_01"
+        mc:Ignorable="d"
+        Title="Фигуры" Height="450" Width="600" Icon="images/Icon128.png">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Name="menu" Grid.Row="0" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Top" Panel.ZIndex="1">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть" Command="Open"/>
+                <MenuItem Header="Сохранить" Command="Save"/>
+                <MenuItem Header="Выход" Click="MenuItem_Click_2" />
+            </MenuItem>
+            <MenuItem Header="Редактировать">
+                <MenuItem Header="Очистить поле" Click="MenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе" Click="MenuItem_Click_1"/>
+            </MenuItem>
+        </Menu>
+        <Canvas Background="White" Name="paint" Grid.Column="0" MouseDown="paint_MouseLeftButtonDown" Grid.Row="1" Margin="10" ClipToBounds="True"/>
+            <StackPanel Name="data" Grid.Column="1" Grid.Row="1" Margin="10" Panel.ZIndex="1" >
+            <TextBlock Text="Толщина линий" Margin="5"></TextBlock>
+            <TextBlock Text="{Binding Path=StrokeThickness}" Margin="5"></TextBlock>
+            <TextBlock Text="Цвет фона фигуры" Margin="5"></TextBlock>
+            <TextBlock Background="{Binding Path=BackgroundColor}" Name="bg_tb" Margin="5"/>
+            <TextBlock Text="Цвет линий фигуры" Margin="5"></TextBlock>
+            <TextBlock Background="{Binding Path=StrokeColor}" Name="sc_tb" Margin="5"></TextBlock>
+            <TextBlock Text="Внутренний радиус" Margin="5"></TextBlock>
+            <TextBlock Text="{Binding Path=InnerRadius}" Name="inrad_tb" Margin="5"></TextBlock>
+            <TextBlock Text="Внешний радиус" Margin="5"></TextBlock>
+            <TextBlock Text="{Binding Path=OuterRadius}" Name="outrad_tb" Margin="5"></TextBlock>
+            <Button Name="editshape_tb" Click="editshape_tb_Click" Content="Изменить параметры фигуры"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

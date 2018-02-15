@@ -12,23 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp1
+namespace Lab_05_01
 {
     /// <summary>
-    /// Interaction logic for InputDataWindow.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class InputDataWindow : Window
+    public partial class AboutWindow : Window
     {
-        public InputDataWindow()
+        public AboutWindow()
         {
             InitializeComponent();
         }
 
-        public InputDataWindow(Values inValues)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-
-            grid.DataContext = inValues;
+            this.Close();
         }
     }
 }

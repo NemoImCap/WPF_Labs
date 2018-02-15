@@ -1,0 +1,28 @@
+﻿<Window x:Class="Lab_07_01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_07_01"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Button.Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <Button x:Name="btnFill" Content="Заполнить список" Click="btnFill_Click"/>
+            <Button x:Name="btnAdd" Content="Добавить" Click="btnAdd_Click"/>
+            <Button x:Name="btnEdit" Content="Изменить" Click="btnEdit_Click"/>
+            <Button x:Name="btnRemove" Content="Удалить" Click="btnRemove_Click"/>
+        </StackPanel>
+        <ListBox x:Name="lBox" Grid.Column="1" ItemsSource="{Binding}"/>
+    </Grid>
+</Window>
