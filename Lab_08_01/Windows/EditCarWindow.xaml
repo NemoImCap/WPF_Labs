@@ -1,0 +1,90 @@
+﻿<Window x:Class="Lab_08_01.EditCarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab_08_01"
+        mc:Ignorable="d"
+        Title="Редактировать" Height="300" Width="387.363">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers >
+                <Trigger Property="Validation.HasError" Value="true" >
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Background" Value="Pink"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="5" Grid.Row="0">
+            <TextBlock>Марка</TextBlock>
+            <TextBox Name="brand_tb">
+                <TextBox.Text>
+                    <Binding Path="Brand"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock>Модель</TextBlock>
+            <TextBox Name="model_tb">
+                <TextBox.Text>
+                    <Binding Path="Model"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock>Год выпуска</TextBlock>
+            <DatePicker Name="year_tb">
+                <DatePicker.SelectedDate>
+                    <Binding Path="Year"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+                <DatePicker.DisplayDate>
+                    <Binding Path="Year"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.DisplayDate>
+            </DatePicker>
+            <TextBlock>Цена</TextBlock>
+            <TextBox Name="cost_tb" Text="{Binding Path=Cost}"></TextBox>
+            <TextBlock>Продано</TextBlock>
+            <CheckBox Name="sold_cb" IsChecked="{Binding Path=Sold}"></CheckBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Content="OK" Name="ok_bt" Click="ok_bt_Click" Width="70" Margin="5">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=brand_tb}" Value="True">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=model_tb}" Value="True">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=year_tb}" Value="True">
+                                <Setter Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Отмена" Name="cancel_bt" Click="cancel_bt_Click" Width="70" Margin="5">
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
