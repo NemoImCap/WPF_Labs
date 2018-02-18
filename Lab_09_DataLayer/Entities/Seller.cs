@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_09_01.Entities
+namespace Lab_09_01.DataLayer.Entities
 {
-    class Seller : IDataErrorInfo
+    public class Seller : IDataErrorInfo
     {
 
         public Seller()

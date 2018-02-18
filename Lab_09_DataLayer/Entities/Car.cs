@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace Lab_09_01.DataLayer
+namespace Lab_09_01.DataLayer.Entities
 {
     public class Car : IDataErrorInfo
     {
@@ -24,6 +24,10 @@ namespace Lab_09_01.DataLayer
         [Required]
         public String Model { get; set; }
         /// <summary>
+        /// Путь к изображению авто
+        /// </summary>
+        public String PicturePath { get; set; }
+        /// <summary>
         /// Год выпуска
         /// </summary>
         [Required]
@@ -37,7 +41,6 @@ namespace Lab_09_01.DataLayer
         /// </summary>
         public bool Sold { get; set; }
 
-        [Required]
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
 
