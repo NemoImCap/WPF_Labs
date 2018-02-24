@@ -13,6 +13,7 @@ namespace Lab_09_01.BusinessLayer.Models
         public String Model { get; set; }
         public String PicturePath { get; set; }
         public DateTime Year { get; set; }
+        public int EngineCapacity { get; set; }
         public decimal Cost { get; set; }
         public bool Sold { get; set; }
     }

@@ -26,6 +26,7 @@ namespace Lab_09_01.DataLayer.Repositories
         {
             var car = context.Cars.Find(id);
             context.Cars.Remove(car);
+            //context.Entry<Car>(car).State = EntityState.Deleted;
         }
 
         public IEnumerable<Car> Find(Func<Car, bool> predicate)
@@ -45,6 +46,7 @@ namespace Lab_09_01.DataLayer.Repositories
 
         public void Update(Car t)
         {
+            context.Cars.
             context.Entry<Car>(t).State = EntityState.Modified;
         }
     }

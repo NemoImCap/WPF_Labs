@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_09_01"
+        xmlns:inf="clr-namespace:Lab_09_01.Infrastructure"        
         mc:Ignorable="d"
-        Title="Редактировать" Height="300" Width="387.363">
+        Title="Редактировать" Height="429" Width="387.363">
     <Window.Resources>
-        <Style TargetType="{x:Type TextBox}">
+        <inf:ImageSourceConverter x:Key="ImageConverter"/>
+            <Style TargetType="{x:Type TextBox}">
             <Style.Triggers >
                 <Trigger Property="Validation.HasError" Value="true" >
                     <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}" />
@@ -59,10 +61,14 @@
                     </Binding>
                 </DatePicker.DisplayDate>
             </DatePicker>
-            <TextBlock>Цена</TextBlock>
+            <TextBlock>Объем двигателя (см. куб)</TextBlock>
+            <TextBox Name="enginecapacity_tb" Text="{Binding Path=EngineCapacity}"></TextBox>
+            <TextBlock>Цена $</TextBlock>
             <TextBox Name="cost_tb" Text="{Binding Path=Cost}"></TextBox>
-            <TextBlock>Продано</TextBlock>
-            <CheckBox Name="sold_cb" IsChecked="{Binding Path=Sold}"></CheckBox>
+            <TextBlock>Имя файла изображения:</TextBlock>
+            <TextBox Name="path_tb" Text="{Binding Path=PicturePath}"/>
+            <TextBlock>Изображение</TextBlock>
+            <Image Name="car_img" Margin="5" Source="{Binding ElementName=path_tb, Path=Text, Converter={StaticResource ImageConverter}}" Width="80" Stretch="Fill"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
             <Button Content="OK" Name="ok_bt" Click="ok_bt_Click" Width="70" Margin="5">

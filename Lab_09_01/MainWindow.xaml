@@ -4,13 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_09_01"
+        xmlns:inf="clr-namespace:Lab_09_01.Infrastructure"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="633.237">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Button.Margin" Value="5"/>
-        </Style>
-        <Style x:Key="HighlightRow" TargetType="{x:Type DataGridRow}">
+        <inf:ImageSourceConverter x:Key="ImageConverter"/>
+
+        <Style x:Key="HighlightItem" TargetType="{x:Type ListBoxItem}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Sold}" Value="True">
                     <Setter Property="Background" Value="LightGreen" />
@@ -20,29 +20,56 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="180"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <StackPanel>
-            <Button x:Name="btnAdd" Content="Добавить" Click="btnAdd_Click"/>
-            <Button x:Name="btnEdit" Content="Изменить" Click="btnEdit_Click"/>
-            <Button x:Name="btnRemove" Content="Удалить" Click="btnRemove_Click"/>
+            <TextBlock>Выберите продавца:</TextBlock>
+            <ComboBox x:Name="cBoxGroup" Margin="10,10,10,10" DisplayMemberPath="Name" ItemsSource="{Binding}" SelectedValuePath="SellerId" SelectedIndex="0"/>
+            <Button Margin="10" Content="Добавить автомобиль" Click="btnAdd_Click"/>
+            <Button Margin="10" Content="Удалить автомобиль" Click="btnRemove_Click"/>
+            <Button Margin="10" Content="Редактировать автомобиль" Click="btnEdit_Click"/>
         </StackPanel>
-        <DataGrid x:Name="dGrid" Grid.Column="1" ItemsSource="{Binding}" RowStyle="{StaticResource HighlightRow}"  AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" LoadingRow="dGrid_LoadingRow" RowHeaderWidth="50">
-            <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True" Header="Марка автомобиля"  Binding="{Binding Brand}"  Width="*">
-                    <DataGridTextColumn.CellStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn IsReadOnly="True" Header="Модель" Binding="{Binding Model}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Дата производства" Binding="{Binding Year}"/>
-                <DataGridTextColumn IsReadOnly="True" Header="Цена"  Binding="{Binding Cost}"/>
-                <DataGridCheckBoxColumn IsReadOnly="True" Header="Продано"  Binding="{Binding Sold}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="10,10,10,10">Директор:</TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding ElementName=cBoxGroup, Path=SelectedItem.Owner}" Margin="0,10,0,0"/>
+            <TextBlock Margin="10,30,10,10">Адрес:</TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding ElementName=cBoxGroup, Path=SelectedItem.Address}" Margin="0,30,0,0"/>
+            <TextBlock Margin="10,50,10,10">Телефон:</TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding ElementName=cBoxGroup, Path=SelectedItem.Phone}" Margin="0,50,0,0"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
+            <ListBox Name="lBox" DataContext="{Binding ElementName=cBoxGroup, Path=SelectedItem}" ItemContainerStyle="{StaticResource HighlightItem}" ItemsSource="{Binding Path=Cars}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Width="50" Source="{Binding Path=PicturePath, Converter={StaticResource ImageConverter}}"/>
+                            <StackPanel Grid.Column="1" >
+                                <TextBlock Text="{Binding Path=Brand, StringFormat=Марка: {0}}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Model, StringFormat=Модель: {0}}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Year, StringFormat={}{0:yyyy г}}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=EngineCapacity, StringFormat= Объем двигателя: {0} см. куб.}" Margin="30,0,0,0"/>
+                                <TextBlock Text="{Binding Path=Cost, StringFormat=Цена: {0:C}}" Margin="30,0,0,0"/>
+                                <CheckBox Content ="Продано" IsChecked="{Binding Path=Sold}" Margin="30,0,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 </Window>

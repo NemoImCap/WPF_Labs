@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab_09_01.BusinessLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using Lab_09_01.Entities;
-
 namespace Lab_09_01
 {
     /// <summary>
@@ -21,14 +20,13 @@ namespace Lab_09_01
     /// </summary>
     public partial class EditCarWindow : Window
     {
-        Car car;
-
+        CarViewModel car;
         public EditCarWindow()
         {
             InitializeComponent();
         }
 
-        public EditCarWindow(Car car) : this()
+        public EditCarWindow(CarViewModel car) : this()
         {
             this.car = car;
             grid.DataContext = car;

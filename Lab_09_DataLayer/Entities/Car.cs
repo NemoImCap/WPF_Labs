@@ -35,6 +35,7 @@ namespace Lab_09_01.DataLayer.Entities
         /// <summary>
         /// Цена
         /// </summary>
+        public int EngineCapacity { get; set; }
         public decimal Cost { get; set; }
         /// <summary>
         /// Продан ли автомобиль

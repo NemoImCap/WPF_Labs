@@ -9,9 +9,10 @@ using AutoMapper;
 
 namespace Lab_09_01.BusinessLayer.Services
 {
-    public class SellerService
+    public class SellerService : ISellerService
     {
         IUnitOfWork dataBase;
+
         public SellerService(string name)
         {
             dataBase = new EntityUnitOfWork(name);
@@ -21,11 +22,13 @@ namespace Lab_09_01.BusinessLayer.Services
         {
             var seller = dataBase.Sellers.Get(sellerId);
 
+            Mapper.Reset();
+
             // Конфигурировани AutoMapper
             Mapper.Initialize(cfg => cfg.CreateMap<CarViewModel, Car>());
             // Отображение объекта CarViewModel на объект Car
             var c = Mapper.Map<Car>(car);
-            // Добавить студента
+            // Добавить авмтомобиль
             seller.Cars.Add(c);
             // Сохранить изменения
             dataBase.Save();
@@ -39,14 +42,38 @@ namespace Lab_09_01.BusinessLayer.Services
 
         public ObservableCollection<SellerViewModel> GetAll()
         {
+            Mapper.Reset();
             // Конфигурирование AutoMapper
             Mapper.Initialize(cfg => { cfg.CreateMap<Seller, SellerViewModel>(); cfg.CreateMap<Car, CarViewModel>(); });
             // Отображение List<Seller> на ObservableCollection<SellerViewModel>
             var sellers = Mapper.Map<ObservableCollection<SellerViewModel>>(dataBase.Sellers.GetAll()); return sellers;
         }
 
-        public void RemoveCarFromSeller(int sellerId, int carId) { throw new NotImplementedException(); }
+        public void RemoveCarFromSeller(int sellerId, int carId)
+        {
+            //var seller = dataBase.Sellers.Get(sellerId);
+            var car = dataBase.Cars.Get(carId);
 
-        public void UpdateSeller(SellerViewModel seller) { throw new NotImplementedException(); }
+            Console.WriteLine(car.Model);
+
+            dataBase.Cars.Delete(carId);
+            ///////  
+            //delete
+
+            dataBase.Save();
+        }
+
+        public void UpdateCar(CarViewModel car)
+        {
+            var c = dataBase.Cars.Get(car.CarId);
+            dataBase.Cars.Update(c);
+
+            dataBase.Save();
+        }
+
+        public void UpdateSeller(SellerViewModel seller)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

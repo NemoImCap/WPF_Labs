@@ -12,6 +12,8 @@ namespace Lab_09_01.BusinessLayer.Models
         public int SellerId { get; set; }
         public String Name { get; set; }
         public String Owner { get; set; }
+        public String Address { get; set; }
+        public String Phone { get; set; }
         public ObservableCollection<CarViewModel> Cars { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Lab_09_01.DataLayer.Repositories
         }
         public void Create(Seller t) { context.Sellers.Add(t); }
 
-        public void Delete(int id) { var group = context.Sellers.Find(id); context.Sellers.Remove(group); }
+        public void Delete(int id) { var seller = context.Sellers.Find(id); context.Sellers.Remove(seller); }
 
         public IEnumerable<Seller> Find(Func<Seller, bool> predicate)
         {
