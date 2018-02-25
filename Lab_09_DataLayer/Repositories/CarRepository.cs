@@ -46,8 +46,9 @@ namespace Lab_09_01.DataLayer.Repositories
 
         public void Update(Car t)
         {
-            context.Cars.
-            context.Entry<Car>(t).State = EntityState.Modified;
+            var entity = context.Cars.First(i => i.CarId == t.CarId);
+            entity = t;
+            context.Entry<Car>(entity).State = EntityState.Modified;
         }
     }
 }

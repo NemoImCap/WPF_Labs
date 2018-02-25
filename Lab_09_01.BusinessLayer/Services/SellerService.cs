@@ -66,6 +66,7 @@ namespace Lab_09_01.BusinessLayer.Services
         public void UpdateCar(CarViewModel car)
         {
             var c = dataBase.Cars.Get(car.CarId);
+
             dataBase.Cars.Update(c);
 
             dataBase.Save();
