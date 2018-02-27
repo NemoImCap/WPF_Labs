@@ -6,6 +6,7 @@ using Lab_09_01.BusinessLayer.Models;
 using Lab_09_01.DataLayer.Interfaces;
 using Lab_09_01.DataLayer.Repositories;
 using AutoMapper;
+using System.Reflection;
 
 namespace Lab_09_01.BusinessLayer.Services
 {
@@ -67,9 +68,16 @@ namespace Lab_09_01.BusinessLayer.Services
         {
             var c = dataBase.Cars.Get(car.CarId);
 
+            c.Brand = car.Brand;
+            c.Cost = car.Cost;
+            c.EngineCapacity = car.EngineCapacity;
+            c.Model = car.Model;
+            c.PicturePath = car.PicturePath;
+            c.Year = car.Year;
+            c.Sold = car.Sold;
             dataBase.Cars.Update(c);
-
             dataBase.Save();
+
         }
 
         public void UpdateSeller(SellerViewModel seller)

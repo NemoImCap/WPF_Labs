@@ -26,9 +26,10 @@ namespace Lab_09_01
             InitializeComponent();
         }
 
-        public EditCarWindow(CarViewModel car) : this()
+        public EditCarWindow(CarViewModel car,bool bEdit) : this()
         {
             this.car = car;
+            sold_tb.IsEnabled = bEdit;
             grid.DataContext = car;
         }
 

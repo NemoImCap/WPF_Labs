@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Lab_09_01.DataLayer.Entities
 {
-    public class Car : IDataErrorInfo
+    public class Car
     {
         /// <summary>
         /// ID записи
@@ -44,37 +44,5 @@ namespace Lab_09_01.DataLayer.Entities
 
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
-
-        string IDataErrorInfo.Error => throw new NotImplementedException();
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string error = String.Empty;
-                switch (columnName)
-                {
-                    case "Brand":
-                        if (String.IsNullOrEmpty(Brand))
-                        {
-                            error = "Поле не может быть пустым";
-                        }
-                        break;
-                    case "Model":
-                        if (String.IsNullOrEmpty(Model))
-                        {
-                            error = "Поле не может быть пустым";
-                        }
-                        break;
-                    case "Year":
-                        if (Year.IsDaylightSavingTime())
-                        {
-                            error = "Не является датой";
-                        }
-                        break;
-                }
-                return error;
-            }
-        }
     }
 }

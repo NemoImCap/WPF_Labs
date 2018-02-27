@@ -48,7 +48,7 @@ namespace Lab_09_01
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var car = new CarViewModel();
-            var dialog = new EditCarWindow(car);
+            var dialog = new EditCarWindow(car, false);
             var result = dialog.ShowDialog();
             if (result == true)
             {
@@ -65,16 +65,7 @@ namespace Lab_09_01
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            CarViewModel car = lBox.SelectedItem as CarViewModel;
-            EditCarWindow ecw = new EditCarWindow(car);
-            ecw.Title = "Редактировать " + car.CarId + " - " + car.Brand;
-            var result = ecw.ShowDialog();
-            if (result == true)
-            {
-                sellerService.UpdateCar(car);
-                ResetCollection();
-                ecw.Close();
-            }
+            UpdateCar();
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -111,6 +102,35 @@ namespace Lab_09_01
             foreach (SellerViewModel seller in sellerService.GetAll())
             {
                 sellers.Add(seller);
+            }
+        }
+
+        private void UpdateCar()
+        {
+            CarViewModel car = lBox.SelectedItem as CarViewModel;
+            if (car != null)
+            {
+                EditCarWindow ecw = new EditCarWindow(car, true);
+                ecw.Title = "Редактировать " + car.CarId + " - " + car.Brand;
+                var result = ecw.ShowDialog();
+                if (result == true)
+                {
+                    sellerService.UpdateCar(car);
+                    ecw.Close();
+                }
+
+                var seller = (SellerViewModel)cBoxGroup.SelectedItem;
+                int sIndex = sellers.IndexOf(seller);
+                int cIndex = seller.Cars.IndexOf(car);
+
+                ResetCollection();
+
+                cBoxGroup.SelectedIndex = sIndex;
+                lBox.SelectedIndex = cIndex;
+            }
+            else
+            {
+                MessageBox.Show("Выберите автомобиль для редактирования","Ошибка получения индекса",MessageBoxButton.OK,MessageBoxImage.Error);
             }
         }
     }

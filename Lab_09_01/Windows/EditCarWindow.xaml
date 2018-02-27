@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab_09_01"
-        xmlns:inf="clr-namespace:Lab_09_01.Infrastructure"        
+        xmlns:inf="clr-namespace:Lab_09_01.Infrastructure"   
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Редактировать" Height="429" Width="387.363">
+        Title="Добавить" Height="429" Width="387.363">
     <Window.Resources>
         <inf:ImageSourceConverter x:Key="ImageConverter"/>
-            <Style TargetType="{x:Type TextBox}">
+        <inf:CapacityConverter x:Key="CapacityConverter"></inf:CapacityConverter>
+        <Style TargetType="{x:Type TextBox}">
             <Style.Triggers >
                 <Trigger Property="Validation.HasError" Value="true" >
                     <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}" />
@@ -45,16 +47,16 @@
                 </TextBox.Text>
             </TextBox>
             <TextBlock>Год выпуска</TextBlock>
-            <DatePicker Name="year_tb">
+            <DatePicker Name="year_tb" SelectedDateFormat="Short" FirstDayOfWeek="Monday" DisplayDateEnd="{x:Static sys:DateTime.Now}" DisplayDateStart="1950-01-01">
                 <DatePicker.SelectedDate>
-                    <Binding Path="Year"  UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Year" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
                 </DatePicker.SelectedDate>
                 <DatePicker.DisplayDate>
-                    <Binding Path="Year"  UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Year" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
@@ -62,9 +64,26 @@
                 </DatePicker.DisplayDate>
             </DatePicker>
             <TextBlock>Объем двигателя (см. куб)</TextBlock>
-            <TextBox Name="enginecapacity_tb" Text="{Binding Path=EngineCapacity}"></TextBox>
+            <TextBox Name="enginecapacity_tb" >
+                <TextBox.Text >
+                    <Binding Path="EngineCapacity" ValidatesOnExceptions="True" Converter="{StaticResource CapacityConverter}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock>Цена $</TextBlock>
-            <TextBox Name="cost_tb" Text="{Binding Path=Cost}"></TextBox>
+            <TextBox Name="cost_tb">
+                <TextBox.Text>
+                    <Binding StringFormat="{}{0:C}" Path="Cost"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <CheckBox Name="sold_tb" IsChecked="{Binding Path=Sold}" Content="Продано" Margin="0,10,0,10"></CheckBox>
             <TextBlock>Имя файла изображения:</TextBlock>
             <TextBox Name="path_tb" Text="{Binding Path=PicturePath}"/>
             <TextBlock>Изображение</TextBlock>
