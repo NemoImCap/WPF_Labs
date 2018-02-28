@@ -32,20 +32,42 @@ namespace Lab_09_01
         public MainWindow()
         {  
             InitializeComponent();
-            //InitCarList();
 
             sellerService = new SellerService("TestDbConnection");
             sellers = sellerService.GetAll();
             cBoxGroup.DataContext = sellers;
         }
 
-        private void InitCarList()
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            //context.Cars.Load();
-            //dGrid.DataContext = context.Cars.Local;
+            AddCar();
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateCar();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveCar();
+        }
+
+        private void dGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex() + 1;
+        }
+
+        private void ResetCollection()
+        {
+            sellers.Clear();
+            foreach (SellerViewModel seller in sellerService.GetAll())
+            {
+                sellers.Add(seller);
+            }
+        }
+
+        private void AddCar()
         {
             var car = new CarViewModel();
             var dialog = new EditCarWindow(car, false);
@@ -63,19 +85,13 @@ namespace Lab_09_01
             }
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void RemoveCar()
         {
-            UpdateCar();
-        }
+            CarViewModel car = lBox.SelectedItem as CarViewModel;
 
-        private void btnRemove_Click(object sender, RoutedEventArgs e)
-        {
-
-            var result = MessageBox.Show("Вы уверены?", "Удалить запись", MessageBoxButton.YesNo); if (result == MessageBoxResult.Yes)
+            if (car != null)
             {
-                CarViewModel car = lBox.SelectedItem as CarViewModel;
-
-                if (car != null)
+                var result = MessageBox.Show("Вы уверены?", "Удалить запись", MessageBoxButton.YesNo); if (result == MessageBoxResult.Yes)
                 {
                     var seller = (SellerViewModel)cBoxGroup.SelectedItem;
                     int sIndex = sellers.IndexOf(seller);
@@ -85,23 +101,8 @@ namespace Lab_09_01
 
                     cBoxGroup.SelectedIndex = sIndex;
                     lBox.SelectedIndex = cIndex;
-                    
+
                 }
-            }
-
-        }
-
-        private void dGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            e.Row.Header = e.Row.GetIndex() + 1;
-        }
-
-        private void ResetCollection()
-        {
-            sellers.Clear();
-            foreach (SellerViewModel seller in sellerService.GetAll())
-            {
-                sellers.Add(seller);
             }
         }
 
@@ -117,20 +118,61 @@ namespace Lab_09_01
                 {
                     sellerService.UpdateCar(car);
                     ecw.Close();
+
+                    var seller = (SellerViewModel)cBoxGroup.SelectedItem;
+                    int sIndex = sellers.IndexOf(seller);
+                    int cIndex = seller.Cars.IndexOf(car);
+
+                    ResetCollection();
+                    cBoxGroup.SelectedIndex = sIndex;
+                    lBox.SelectedIndex = cIndex;
                 }
-
-                var seller = (SellerViewModel)cBoxGroup.SelectedItem;
-                int sIndex = sellers.IndexOf(seller);
-                int cIndex = seller.Cars.IndexOf(car);
-
-                ResetCollection();
-
-                cBoxGroup.SelectedIndex = sIndex;
-                lBox.SelectedIndex = cIndex;
             }
             else
             {
                 MessageBox.Show("Выберите автомобиль для редактирования","Ошибка получения индекса",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
+
+        private void lBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            object item = null;
+            item = GetElementFromPoint(lBox, e.GetPosition(lBox));
+            if (item != null)
+                UpdateCar();
+        }
+        private object GetElementFromPoint(ListBox box, Point point)
+        {
+            UIElement element = (UIElement)box.InputHitTest(point);
+            while (true)
+            {
+                if (element == box)
+                {
+                    return null;
+                }
+                object item = box.ItemContainerGenerator.ItemFromContainer(element);
+                bool itemFound = !(item.Equals(DependencyProperty.UnsetValue));
+                if (itemFound)
+                {
+                    return item;
+                }
+                element = (UIElement)VisualTreeHelper.GetParent(element);
+            }
+        }
+
+        private void lBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Delete)
+            {
+                RemoveCar();
+            }
+            if(e.Key == Key.Enter)
+            {
+                UpdateCar();
+            }
+            if(e.Key == Key.Insert)
+            {
+                AddCar();
             }
         }
     }

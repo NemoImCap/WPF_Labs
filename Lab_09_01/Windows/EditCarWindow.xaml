@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <StackPanel Margin="5" Grid.Row="0">
             <TextBlock>Марка</TextBlock>
-            <TextBox Name="brand_tb">
+            <TextBox Name="brand_tb" TabIndex="0">
                 <TextBox.Text>
                     <Binding Path="Brand"  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -36,8 +36,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock>Модель</TextBlock>
-            <TextBox Name="model_tb">
+            <TextBlock  Margin="0,10,0,0">Модель</TextBlock>
+            <TextBox Name="model_tb" TabIndex="1">
                 <TextBox.Text>
                     <Binding Path="Model"  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -46,8 +46,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock>Год выпуска</TextBlock>
-            <DatePicker Name="year_tb" SelectedDateFormat="Short" FirstDayOfWeek="Monday" DisplayDateEnd="{x:Static sys:DateTime.Now}" DisplayDateStart="1950-01-01">
+            <TextBlock  Margin="0,10,0,0">Год выпуска</TextBlock>
+            <DatePicker Name="year_tb" SelectedDateFormat="Short" FirstDayOfWeek="Monday" DisplayDateEnd="{x:Static sys:DateTime.Now}" DisplayDateStart="1950-01-01" TabIndex="2" IsTabStop="True">
                 <DatePicker.SelectedDate>
                     <Binding Path="Year" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -63,34 +63,34 @@
                     </Binding>
                 </DatePicker.DisplayDate>
             </DatePicker>
-            <TextBlock>Объем двигателя (см. куб)</TextBlock>
-            <TextBox Name="enginecapacity_tb" >
+            <TextBlock Margin="0,10,0,0">Объем двигателя см³</TextBlock>
+            <TextBox Name="enginecapacity_tb" TabIndex="3" >
                 <TextBox.Text >
-                    <Binding Path="EngineCapacity" ValidatesOnExceptions="True" Converter="{StaticResource CapacityConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="EngineCapacity" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBlock>Цена $</TextBlock>
-            <TextBox Name="cost_tb">
+            <TextBlock  Margin="0,10,0,0">Цена $</TextBlock>
+            <TextBox Name="cost_tb" TabIndex="4">
                 <TextBox.Text>
-                    <Binding StringFormat="{}{0:C}" Path="Cost"  UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="Cost"  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <DataErrorValidationRule />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <CheckBox Name="sold_tb" IsChecked="{Binding Path=Sold}" Content="Продано" Margin="0,10,0,10"></CheckBox>
+            <CheckBox Name="sold_tb" IsChecked="{Binding Path=Sold}" Content="Продано" Margin="0,10,0,10" TabIndex="5"></CheckBox>
             <TextBlock>Имя файла изображения:</TextBlock>
-            <TextBox Name="path_tb" Text="{Binding Path=PicturePath}"/>
+            <TextBox Name="path_tb" Text="{Binding Path=PicturePath}" TabIndex="6"/>
             <TextBlock>Изображение</TextBlock>
             <Image Name="car_img" Margin="5" Source="{Binding ElementName=path_tb, Path=Text, Converter={StaticResource ImageConverter}}" Width="80" Stretch="Fill"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-            <Button Content="OK" Name="ok_bt" Click="ok_bt_Click" Width="70" Margin="5">
+            <Button Content="OK" Name="ok_bt" Click="ok_bt_Click" Width="70" Margin="5" TabIndex="7" IsDefault="True">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="IsEnabled" Value="True"/>
@@ -108,7 +108,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Отмена" Name="cancel_bt" Click="cancel_bt_Click" Width="70" Margin="5">
+            <Button Content="Отмена" Name="cancel_bt" Click="cancel_bt_Click" Width="70" Margin="5" TabIndex="8" IsCancel="True">
             </Button>
         </StackPanel>
     </Grid>
